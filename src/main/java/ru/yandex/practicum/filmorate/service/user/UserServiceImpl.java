@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private final UserStorage userStorage;
-    static private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl(UserStorage userStorage) {
         this.userStorage = userStorage;
