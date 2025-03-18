@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.service.film;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dto.IncomeFilmDto;
 import ru.yandex.practicum.filmorate.dto.IncomeFilmWithIdDto;
@@ -16,7 +17,9 @@ import java.util.Optional;
 
 @Service
 public class FilmServiceImpl implements FilmService {
+    @Autowired
     private final FilmStorage filmStorage;
+
     private static final Logger log = LoggerFactory.getLogger(FilmServiceImpl.class);
 
     public FilmServiceImpl(FilmStorage filmStorage) {

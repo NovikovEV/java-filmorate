@@ -2,6 +2,8 @@ package ru.yandex.practicum.filmorate.service.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dto.IncomeUserDto;
 import ru.yandex.practicum.filmorate.dto.IncomeUserWithIdDto;
 import ru.yandex.practicum.filmorate.dto.OutcomeUserDto;
@@ -12,8 +14,11 @@ import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
+    @Autowired
     private final UserStorage userStorage;
+
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserServiceImpl(UserStorage userStorage) {
