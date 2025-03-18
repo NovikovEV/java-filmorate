@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class FilmServiceImpl implements FilmService {
     private final FilmStorage filmStorage;
-    private final static Logger log = LoggerFactory.getLogger(FilmServiceImpl.class);
+    static private final Logger log = LoggerFactory.getLogger(FilmServiceImpl.class);
 
     public FilmServiceImpl(FilmStorage filmStorage) {
         this.filmStorage = filmStorage;
