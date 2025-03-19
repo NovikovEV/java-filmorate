@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public record IncomeFilmWithIdDto(
         @Positive(message = "Не корректный id") int id,
         @NotEmpty(message = "Название не может быть пустым") @Length(max = 200, message = "максимальная длина описания — 200 символов") String name,
-        String description,
+        @Length(max = 200, message = "Максимальная длинна описания 200 символов") String description,
         @JsonFormat(pattern = "yyyy-MM-dd") @ReleaseDate LocalDate releaseDate,
         @Positive(message = "Продолжительность должна быть положительным числом") int duration
 ) {

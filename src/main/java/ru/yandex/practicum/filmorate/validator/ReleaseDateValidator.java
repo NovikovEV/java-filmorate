@@ -13,7 +13,7 @@ public class ReleaseDateValidator implements ConstraintValidator<ReleaseDate, Lo
 
     @Override
     public boolean isValid(LocalDate release, ConstraintValidatorContext context) {
-        LocalDate firstFilmDate = LocalDate.of(1985, 12, 28);
+        LocalDate firstFilmDate = LocalDate.of(1895, 12, 28);
         return release.isEqual(firstFilmDate) || release.isAfter(firstFilmDate);
     }
 }
