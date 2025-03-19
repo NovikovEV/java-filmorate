@@ -2,21 +2,18 @@ package ru.yandex.practicum.filmorate.service.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.dto.IncomeUserDto;
-import ru.yandex.practicum.filmorate.dto.IncomeUserWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
     private final UserStorage userStorage;
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -26,8 +23,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public OutcomeUserDto create(IncomeUserDto incomeUserDto) {
-        User user = convertToUser(incomeUserDto);
+    public ResponseUserDto create(RequestUserDto requestUserDto) {
+        User user = convertToUser(requestUserDto);
         if (user.getName() == null) {
             user.setName("common");
         }
@@ -35,48 +32,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public OutcomeUserDto update(IncomeUserWithIdDto incomeUserWithIdDto) {
-        User user = convertToUser(incomeUserWithIdDto);
-        Optional<User> optionalUser = userStorage.update(user);
+    public ResponseUserDto update(RequestUserWithIdDto requestUserWithIdDto) {
+        User user = convertToUser(requestUserWithIdDto);
 
-        if (optionalUser.isPresent()) {
-            User updatedUser = optionalUser.get();
-            return convertToOutcomeUserDto(updatedUser);
-        } else {
-            final String message = "Пользователь с id=: " + incomeUserWithIdDto.id() + " не найден";
+        User updatedUser = userStorage.update(user).orElseThrow(() -> {
+            final String message = "Пользователь с id=: " + requestUserWithIdDto.id() + " не найден";
             log.info(message);
-            throw new UserNotFoundException(message);
-        }
+            return new UserNotFoundException(message);
+        });
+
+        return convertToOutcomeUserDto(updatedUser);
     }
 
     @Override
-    public List<OutcomeUserDto> getAll() {
+    public List<ResponseUserDto> getAll() {
         return userStorage.getAll().stream()
                 .map(this::convertToOutcomeUserDto)
                 .toList();
     }
 
-    private User convertToUser(IncomeUserDto incomeUserDto) {
+    private User convertToUser(RequestUserDto requestUserDto) {
         return new User(
-                incomeUserDto.email(),
-                incomeUserDto.login(),
-                incomeUserDto.name(),
-                incomeUserDto.birthday()
+                requestUserDto.email(),
+                requestUserDto.login(),
+                requestUserDto.name(),
+                requestUserDto.birthday()
         );
     }
 
-    private User convertToUser(IncomeUserWithIdDto incomeUserWithIdDto) {
+    private User convertToUser(RequestUserWithIdDto requestUserWithIdDto) {
         return new User(
-                incomeUserWithIdDto.id(),
-                incomeUserWithIdDto.email(),
-                incomeUserWithIdDto.login(),
-                incomeUserWithIdDto.name(),
-                incomeUserWithIdDto.birthday()
+                requestUserWithIdDto.id(),
+                requestUserWithIdDto.email(),
+                requestUserWithIdDto.login(),
+                requestUserWithIdDto.name(),
+                requestUserWithIdDto.birthday()
         );
     }
 
-    private OutcomeUserDto convertToOutcomeUserDto(User user) {
-        return new OutcomeUserDto(
+    private ResponseUserDto convertToOutcomeUserDto(User user) {
+        return new ResponseUserDto(
                 user.getId(),
                 user.getEmail(),
                 user.getLogin(),

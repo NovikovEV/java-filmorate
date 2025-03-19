@@ -36,7 +36,7 @@ public class FilmStorageImpl implements FilmStorage {
     }
 
     private int nexId() {
-        return id++;
+        return this.id++;
     }
 
     private boolean checkId(Integer id) {

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * DTO for {@link ru.yandex.practicum.filmorate.model.Film}
  */
-public record OutcomeFilmDto(
+public record ResponseFilmDto(
         int id,
         String name,
         String description,

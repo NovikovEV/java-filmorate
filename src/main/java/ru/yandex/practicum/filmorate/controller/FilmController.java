@@ -1,11 +1,10 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.dto.IncomeFilmDto;
-import ru.yandex.practicum.filmorate.dto.IncomeFilmWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseFilmDto;
 import ru.yandex.practicum.filmorate.service.film.FilmService;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/films")
 public class FilmController {
-    @Autowired
     private final FilmService filmService;
 
     public FilmController(FilmService filmService) {
@@ -21,17 +19,17 @@ public class FilmController {
     }
 
     @PostMapping
-    public OutcomeFilmDto createFilm(@Valid @RequestBody IncomeFilmDto incomeFilmDto) {
-        return filmService.create(incomeFilmDto);
+    public ResponseFilmDto createFilm(@Valid @RequestBody RequestFilmDto requestFilmDto) {
+        return filmService.create(requestFilmDto);
     }
 
     @PutMapping
-    public OutcomeFilmDto updateFilm(@Valid @RequestBody IncomeFilmWithIdDto incomeFilmWithIdDto) {
-        return filmService.update(incomeFilmWithIdDto);
+    public ResponseFilmDto updateFilm(@Valid @RequestBody RequestFilmWithIdDto requestFilmWithIdDto) {
+        return filmService.update(requestFilmWithIdDto);
     }
 
     @GetMapping
-    public List<OutcomeFilmDto> getAll() {
+    public List<ResponseFilmDto> getAll() {
         return filmService.getAll();
     }
 }

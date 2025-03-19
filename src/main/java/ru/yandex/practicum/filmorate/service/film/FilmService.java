@@ -1,15 +1,15 @@
 package ru.yandex.practicum.filmorate.service.film;
 
-import ru.yandex.practicum.filmorate.dto.IncomeFilmDto;
-import ru.yandex.practicum.filmorate.dto.IncomeFilmWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseFilmDto;
 
 import java.util.List;
 
 public interface FilmService {
-    OutcomeFilmDto create(IncomeFilmDto incomeFilmDto);
+    ResponseFilmDto create(RequestFilmDto requestFilmDto);
 
-    OutcomeFilmDto update(IncomeFilmWithIdDto incomeFilmWithIdDto);
+    ResponseFilmDto update(RequestFilmWithIdDto requestFilmWithIdDto);
 
-    List<OutcomeFilmDto> getAll();
+    List<ResponseFilmDto> getAll();
 }

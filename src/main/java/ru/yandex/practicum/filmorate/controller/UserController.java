@@ -1,11 +1,10 @@
 package ru.yandex.practicum.filmorate.controller;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.yandex.practicum.filmorate.dto.IncomeUserDto;
-import ru.yandex.practicum.filmorate.dto.IncomeUserWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
 import ru.yandex.practicum.filmorate.service.user.UserService;
 
 import java.util.List;
@@ -13,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -21,17 +19,17 @@ public class UserController {
     }
 
     @PostMapping
-    public OutcomeUserDto createUser(@Valid @RequestBody IncomeUserDto incomeUserDto) {
-        return userService.create(incomeUserDto);
+    public ResponseUserDto createUser(@Valid @RequestBody RequestUserDto requestUserDto) {
+        return userService.create(requestUserDto);
     }
 
     @PutMapping
-    public OutcomeUserDto updateUser(@Valid @RequestBody IncomeUserWithIdDto incomeUserWithIdDto) {
-        return userService.update(incomeUserWithIdDto);
+    public ResponseUserDto updateUser(@Valid @RequestBody RequestUserWithIdDto requestUserWithIdDto) {
+        return userService.update(requestUserWithIdDto);
     }
 
     @GetMapping
-    public List<OutcomeUserDto> getAll() {
+    public List<ResponseUserDto> getAll() {
         return userService.getAll();
     }
 }

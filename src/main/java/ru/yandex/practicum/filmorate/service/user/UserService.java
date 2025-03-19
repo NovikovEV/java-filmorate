@@ -1,15 +1,15 @@
 package ru.yandex.practicum.filmorate.service.user;
 
-import ru.yandex.practicum.filmorate.dto.IncomeUserDto;
-import ru.yandex.practicum.filmorate.dto.IncomeUserWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserDto;
+import ru.yandex.practicum.filmorate.dto.RequestUserWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
 
 import java.util.List;
 
 public interface UserService {
-    OutcomeUserDto create(IncomeUserDto incomeUserDto);
+    ResponseUserDto create(RequestUserDto requestUserDto);
 
-    OutcomeUserDto update(IncomeUserWithIdDto incomeUserWithIdDto);
+    ResponseUserDto update(RequestUserWithIdDto requestUserWithIdDto);
 
-    List<OutcomeUserDto> getAll();
+    List<ResponseUserDto> getAll();
 }

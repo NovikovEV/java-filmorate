@@ -11,7 +11,8 @@ import java.time.LocalDate;
 /**
  * DTO for {@link ru.yandex.practicum.filmorate.model.Film}
  */
-public record IncomeFilmDto(
+public record RequestFilmWithIdDto(
+        @Positive(message = "Не корректный id") int id,
         @NotEmpty(message = "Название не может быть пустым") @Length(max = 200, message = "максимальная длина описания — 200 символов") String name,
         @Length(max = 200, message = "Максимальная длинна описания 200 символов") String description,
         @JsonFormat(pattern = "yyyy-MM-dd") @ReleaseDate LocalDate releaseDate,

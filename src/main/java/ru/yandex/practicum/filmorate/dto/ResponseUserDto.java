@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * DTO for {@link ru.yandex.practicum.filmorate.model.User}
  */
-public record OutcomeUserDto(
+public record ResponseUserDto(
         int id,
         String email,
         String login,

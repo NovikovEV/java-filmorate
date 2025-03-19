@@ -2,22 +2,19 @@ package ru.yandex.practicum.filmorate.service.film;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.dto.IncomeFilmDto;
-import ru.yandex.practicum.filmorate.dto.IncomeFilmWithIdDto;
-import ru.yandex.practicum.filmorate.dto.OutcomeFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmDto;
+import ru.yandex.practicum.filmorate.dto.RequestFilmWithIdDto;
+import ru.yandex.practicum.filmorate.dto.ResponseFilmDto;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.storage.film.FilmStorage;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FilmServiceImpl implements FilmService {
-    @Autowired
     private final FilmStorage filmStorage;
 
     private static final Logger log = LoggerFactory.getLogger(FilmServiceImpl.class);
@@ -27,56 +24,54 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public OutcomeFilmDto create(IncomeFilmDto incomeFilmDto) {
-        Film film = convertToFilm(incomeFilmDto);
+    public ResponseFilmDto create(RequestFilmDto requestFilmDto) {
+        Film film = convertToFilm(requestFilmDto);
 
         return convertToOutcomeFilmDto(filmStorage.create(film));
     }
 
     @Override
-    public OutcomeFilmDto update(IncomeFilmWithIdDto incomeFilmWithIdDto) {
-        Film film = convertToFilm(incomeFilmWithIdDto);
-        Optional<Film> optionalFilm = filmStorage.update(film);
+    public ResponseFilmDto update(RequestFilmWithIdDto requestFilmWithIdDto) {
+        Film film = convertToFilm(requestFilmWithIdDto);
 
-        if (optionalFilm.isPresent()) {
-            Film updatedFilm = optionalFilm.get();
-            return convertToOutcomeFilmDto(updatedFilm);
-        } else {
-            final String message = "Фильм с id= " + incomeFilmWithIdDto.id() + " не найден";
+        Film updatedFilm = filmStorage.update(film).orElseThrow(() -> {
+            final String message = "Фильм с id= " + requestFilmWithIdDto.id() + " не найден";
             log.info(message);
-            throw new FilmNotFoundException(message);
-        }
+            return new FilmNotFoundException(message);
+        });
+
+        return convertToOutcomeFilmDto(updatedFilm);
     }
 
     @Override
-    public List<OutcomeFilmDto> getAll() {
+    public List<ResponseFilmDto> getAll() {
         List<Film> films = filmStorage.getAll();
         return films.stream()
                 .map(this::convertToOutcomeFilmDto)
                 .toList();
     }
 
-    private Film convertToFilm(IncomeFilmDto incomeFilmDto) {
+    private Film convertToFilm(RequestFilmDto requestFilmDto) {
         return new Film(
-                incomeFilmDto.name(),
-                incomeFilmDto.description(),
-                incomeFilmDto.releaseDate(),
-                Duration.ofMinutes(incomeFilmDto.duration())
+                requestFilmDto.name(),
+                requestFilmDto.description(),
+                requestFilmDto.releaseDate(),
+                Duration.ofMinutes(requestFilmDto.duration())
         );
     }
 
-    private Film convertToFilm(IncomeFilmWithIdDto incomeFilmWithIdDto) {
+    private Film convertToFilm(RequestFilmWithIdDto requestFilmWithIdDto) {
         return new Film(
-                incomeFilmWithIdDto.id(),
-                incomeFilmWithIdDto.name(),
-                incomeFilmWithIdDto.description(),
-                incomeFilmWithIdDto.releaseDate(),
-                Duration.ofMinutes(incomeFilmWithIdDto.duration())
+                requestFilmWithIdDto.id(),
+                requestFilmWithIdDto.name(),
+                requestFilmWithIdDto.description(),
+                requestFilmWithIdDto.releaseDate(),
+                Duration.ofMinutes(requestFilmWithIdDto.duration())
         );
     }
 
-    private OutcomeFilmDto convertToOutcomeFilmDto(Film film) {
-        return new OutcomeFilmDto(
+    private ResponseFilmDto convertToOutcomeFilmDto(Film film) {
+        return new ResponseFilmDto(
                 film.getId(),
                 film.getName(),
                 film.getDescription(),
