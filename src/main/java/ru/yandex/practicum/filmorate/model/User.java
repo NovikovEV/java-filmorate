@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class User {
     private Integer id;
@@ -63,7 +64,7 @@ public class User {
             return false;
         }
 
-        return id == user.id && email.equals(user.email) && login.equals(user.login) && name.equals(user.name) && birthday.equals(user.birthday);
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email) && Objects.equals(login, user.login) && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
 
     @Override

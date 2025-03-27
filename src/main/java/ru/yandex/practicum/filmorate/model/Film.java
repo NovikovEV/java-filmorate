@@ -2,6 +2,7 @@ package ru.yandex.practicum.filmorate.model;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Film {
     private Integer id;
@@ -64,7 +65,7 @@ public class Film {
             return false;
         }
 
-        return id == film.id && name.equals(film.name) && description.equals(film.description) && releaseDate.equals(film.releaseDate) && duration.equals(film.duration);
+        return Objects.equals(id, film.id) && Objects.equals(name, film.name) && Objects.equals(description, film.description) && Objects.equals(releaseDate, film.releaseDate) && Objects.equals(duration, film.duration);
     }
 
     @Override
