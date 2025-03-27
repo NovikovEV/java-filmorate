@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dto.RequestUserDto;
-import ru.yandex.practicum.filmorate.dto.RequestUserWithIdDto;
 import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
 import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseUserDto update(RequestUserWithIdDto requestUserWithIdDto) {
+    public ResponseUserDto update(RequestUserDto requestUserWithIdDto) {
         User user = convertToUser(requestUserWithIdDto);
 
         User updatedUser = userStorage.update(user).orElseThrow(() -> {
@@ -53,20 +52,11 @@ public class UserServiceImpl implements UserService {
 
     private User convertToUser(RequestUserDto requestUserDto) {
         return new User(
+                requestUserDto.id(),
                 requestUserDto.email(),
                 requestUserDto.login(),
                 requestUserDto.name(),
                 requestUserDto.birthday()
-        );
-    }
-
-    private User convertToUser(RequestUserWithIdDto requestUserWithIdDto) {
-        return new User(
-                requestUserWithIdDto.id(),
-                requestUserWithIdDto.email(),
-                requestUserWithIdDto.login(),
-                requestUserWithIdDto.name(),
-                requestUserWithIdDto.birthday()
         );
     }
 

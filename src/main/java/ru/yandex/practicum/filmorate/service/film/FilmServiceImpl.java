@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.filmorate.dto.RequestFilmDto;
-import ru.yandex.practicum.filmorate.dto.RequestFilmWithIdDto;
 import ru.yandex.practicum.filmorate.dto.ResponseFilmDto;
 import ru.yandex.practicum.filmorate.exception.FilmNotFoundException;
 import ru.yandex.practicum.filmorate.model.Film;
@@ -31,11 +30,11 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public ResponseFilmDto update(RequestFilmWithIdDto requestFilmWithIdDto) {
-        Film film = convertToFilm(requestFilmWithIdDto);
+    public ResponseFilmDto update(RequestFilmDto requestFilmDto) {
+        Film film = convertToFilm(requestFilmDto);
 
         Film updatedFilm = filmStorage.update(film).orElseThrow(() -> {
-            final String message = "Фильм с id= " + requestFilmWithIdDto.id() + " не найден";
+            final String message = "Фильм с id= " + requestFilmDto.id() + " не найден";
             log.info(message);
             return new FilmNotFoundException(message);
         });
@@ -53,20 +52,11 @@ public class FilmServiceImpl implements FilmService {
 
     private Film convertToFilm(RequestFilmDto requestFilmDto) {
         return new Film(
+                requestFilmDto.id(),
                 requestFilmDto.name(),
                 requestFilmDto.description(),
                 requestFilmDto.releaseDate(),
                 Duration.ofMinutes(requestFilmDto.duration())
-        );
-    }
-
-    private Film convertToFilm(RequestFilmWithIdDto requestFilmWithIdDto) {
-        return new Film(
-                requestFilmWithIdDto.id(),
-                requestFilmWithIdDto.name(),
-                requestFilmWithIdDto.description(),
-                requestFilmWithIdDto.releaseDate(),
-                Duration.ofMinutes(requestFilmWithIdDto.duration())
         );
     }
 

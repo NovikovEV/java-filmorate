@@ -3,7 +3,6 @@ package ru.yandex.practicum.filmorate.controller;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.dto.RequestUserDto;
-import ru.yandex.practicum.filmorate.dto.RequestUserWithIdDto;
 import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
 import ru.yandex.practicum.filmorate.service.user.UserService;
 
@@ -24,8 +23,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseUserDto updateUser(@Valid @RequestBody RequestUserWithIdDto requestUserWithIdDto) {
-        return userService.update(requestUserWithIdDto);
+    public ResponseUserDto updateUser(@Valid @RequestBody RequestUserDto requestUserDto) {
+        return userService.update(requestUserDto);
     }
 
     @GetMapping
