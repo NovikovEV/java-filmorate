@@ -3,9 +3,9 @@ package ru.yandex.practicum.filmorate.service.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.filmorate.dto.RequestUserDto;
-import ru.yandex.practicum.filmorate.dto.ResponseUserDto;
-import ru.yandex.practicum.filmorate.exception.UserNotFoundException;
+import ru.yandex.practicum.filmorate.dto.user.RequestUserDto;
+import ru.yandex.practicum.filmorate.dto.user.ResponseUserDto;
+import ru.yandex.practicum.filmorate.exception.user.UserNotFoundException;
 import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.storage.user.UserStorage;
 

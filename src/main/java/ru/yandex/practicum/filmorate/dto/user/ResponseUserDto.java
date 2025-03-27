@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dto;
+package ru.yandex.practicum.filmorate.dto.user;
 
 import java.time.LocalDate;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * DTO for {@link ru.yandex.practicum.filmorate.model.User}
  */
 public record ResponseUserDto(
-        int id,
+        Integer id,
         String email,
         String login,
         String name,
