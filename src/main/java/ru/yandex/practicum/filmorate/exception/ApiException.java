@@ -1,12 +1,12 @@
 package ru.yandex.practicum.filmorate.exception;
 
-import org.springframework.http.HttpStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
 public record ApiException(
         String message,
-        HttpStatus httpStatus,
+        @JsonFormat(pattern = "yyyy-MM-dd/HH:mm:ss")
         LocalDateTime timeStamp
 ) {
 }
