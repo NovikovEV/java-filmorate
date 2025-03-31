@@ -11,4 +11,12 @@ public interface UserService {
     ResponseUserDto update(RequestUserDto requestUserDto);
 
     List<ResponseUserDto> getAll();
+
+    Boolean addFriend(Integer userId, Integer friendId);
+
+    Boolean removeFriend(Integer userId, Integer friendId);
+
+    List<ResponseUserDto> getCommonFriends(Integer userId, Integer friendId);
+
+    List<ResponseUserDto> getUserFriends(Integer userId);
 }

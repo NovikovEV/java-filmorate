@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: filmorate
+  banner:
+    image:
+      location: ./banner.txt
+
+logging:
+  level:
+      org:
+        zalando:
+          logbook: TRACE
