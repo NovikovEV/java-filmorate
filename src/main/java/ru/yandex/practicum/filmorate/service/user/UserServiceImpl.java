@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean addFriend(Integer userId, Integer friendId) {
-        return userStorage.addFriend(userId, friendId).orElseThrow(() -> {
+    public void addFriend(Integer userId, Integer friendId) {
+        userStorage.addFriend(userId, friendId).orElseThrow(() -> {
             final String message = String.format("Пользователь с id=%d или id=%d не найден", userId, friendId);
             log.info(message);
 
@@ -66,8 +66,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Boolean removeFriend(Integer userId, Integer friendId) {
-        return userStorage.removeFriend(userId, friendId).orElseThrow(() -> {
+    public void removeFriend(Integer userId, Integer friendId) {
+        userStorage.removeFriend(userId, friendId).orElseThrow(() -> {
             final String message = String.format("Пользователь с id=%d или id=%d не найден", userId, friendId);
             log.info(message);
 

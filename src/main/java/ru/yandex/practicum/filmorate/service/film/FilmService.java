@@ -12,9 +12,9 @@ public interface FilmService {
 
     List<ResponseFilmDto> getAll();
 
-    Boolean addLike(Integer filmId, Integer userId);
+    void addLike(Integer filmId, Integer userId);
 
-    Boolean removeLike(Integer filmId, Integer userId);
+    void removeLike(Integer filmId, Integer userId);
 
     List<ResponseFilmDto> getPopularFilms(int count);
 }

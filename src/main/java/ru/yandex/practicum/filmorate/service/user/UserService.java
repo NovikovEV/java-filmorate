@@ -12,9 +12,9 @@ public interface UserService {
 
     List<ResponseUserDto> getAll();
 
-    Boolean addFriend(Integer userId, Integer friendId);
+    void addFriend(Integer userId, Integer friendId);
 
-    Boolean removeFriend(Integer userId, Integer friendId);
+    void removeFriend(Integer userId, Integer friendId);
 
     List<ResponseUserDto> getCommonFriends(Integer userId, Integer friendId);
 

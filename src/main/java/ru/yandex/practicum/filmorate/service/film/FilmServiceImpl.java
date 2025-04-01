@@ -58,7 +58,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Boolean addLike(Integer filmId, Integer userId) {
+    public void addLike(Integer filmId, Integer userId) {
         userStorage.checkUserId(userId).orElseThrow(() -> {
             final String message = String.format("Пользователь с id= %d не найден", userId);
             log.info(message);
@@ -66,7 +66,7 @@ public class FilmServiceImpl implements FilmService {
             return new NotFoundException(message);
         });
 
-        return filmStorage.addLike(filmId, userId).orElseThrow(() -> {
+        filmStorage.addLike(filmId, userId).orElseThrow(() -> {
             final String message = String.format("Фильм с id= %d не найден", filmId);
             log.info(message);
 
@@ -75,7 +75,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Boolean removeLike(Integer filmId, Integer userId) {
+    public void removeLike(Integer filmId, Integer userId) {
         userStorage.checkUserId(userId).orElseThrow(() -> {
             final String message = String.format("Пользователь с id= %d не найден", userId);
             log.info(message);
@@ -83,7 +83,7 @@ public class FilmServiceImpl implements FilmService {
             return new NotFoundException(message);
         });
 
-        return filmStorage.removeLike(filmId, userId).orElseThrow(() -> {
+        filmStorage.removeLike(filmId, userId).orElseThrow(() -> {
             final String message = String.format("Фильм с id= %d не найден", filmId);
             log.info(message);
 
