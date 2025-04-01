@@ -62,14 +62,11 @@ public class FilmStorageImpl implements FilmStorage {
     }
 
     @Override
-    public Optional<List<Film>> getPopularFilms(int count) {
-
-        return Optional.of(
-                filmHashMap.values().stream()
+    public List<Film> getPopularFilms(int count) {
+        return filmHashMap.values().stream()
                         .sorted(Comparator.comparingInt(film -> -film.getLikes().size()))
                         .limit(count)
-                        .toList()
-        );
+                        .toList();
     }
 
     private int nexId() {

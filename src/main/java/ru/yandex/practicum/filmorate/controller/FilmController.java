@@ -1,6 +1,5 @@
 package ru.yandex.practicum.filmorate.controller;
 
-import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.dto.film.RequestFilmDto;
@@ -36,19 +35,19 @@ public class FilmController {
     }
 
     @PutMapping("/{filmId}/like/{userId}")
-    public Boolean addLike(
-            @PathVariable(required = false) @NotNull(message = "Не указан id пользователя") Integer filmId,
-            @PathVariable(required = false) @NotNull(message = "Не указан id друга") Integer userId
+    public void addLike(
+            @PathVariable Integer filmId,
+            @PathVariable Integer userId
     ) {
-        return filmService.addLike(filmId, userId);
+        filmService.addLike(filmId, userId);
     }
 
     @DeleteMapping("/{filmId}/like/{userId}")
-    public Boolean removeLike(
-            @PathVariable(required = false) @NotNull(message = "Не указан id пользователя") Integer filmId,
-            @PathVariable(required = false) @NotNull(message = "Не указан id друга") Integer userId
+    public void removeLike(
+            @PathVariable Integer filmId,
+            @PathVariable Integer userId
     ) {
-        return filmService.removeLike(filmId, userId);
+        filmService.removeLike(filmId, userId);
     }
 
     @GetMapping("/popular")

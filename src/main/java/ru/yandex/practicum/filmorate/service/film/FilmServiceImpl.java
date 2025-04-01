@@ -93,11 +93,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public List<ResponseFilmDto> getPopularFilms(int count) {
-        List<Film> popularFilms = filmStorage.getPopularFilms(count).orElseThrow(() -> {
-            final String message = "Популярных фильмов не найдено";
-            log.info(message);
-            return new NotFoundException(message);
-        });
+        List<Film> popularFilms = filmStorage.getPopularFilms(count);
 
         return popularFilms.stream()
                 .map(filmMapper::convertFilmToResponseFilmDto)

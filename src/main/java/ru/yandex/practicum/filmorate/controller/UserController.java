@@ -36,19 +36,19 @@ public class UserController {
     }
 
     @PutMapping("/{userId}/friends/{friendId}")
-    public Boolean addFriend(
-            @PathVariable(required = false) @NotNull(message = "Не указан id пользователя") Integer userId,
-            @PathVariable(required = false) @NotNull(message = "Не указан id друга") Integer friendId
+    public void addFriend(
+            @PathVariable Integer userId,
+            @PathVariable Integer friendId
     ) {
-        return userService.addFriend(userId, friendId);
+        userService.addFriend(userId, friendId);
     }
 
     @DeleteMapping("/{userId}/friends/{friendId}")
-    public Boolean removeFriend(
-            @PathVariable(required = false) @NotNull(message = "Не указан id пользователя") Integer userId,
-            @PathVariable(required = false) @NotNull(message = "Не указан id друга") Integer friendId
+    public void removeFriend(
+            @PathVariable Integer userId,
+            @PathVariable Integer friendId
     ) {
-        return userService.removeFriend(userId, friendId);
+        userService.removeFriend(userId, friendId);
     }
 
     @GetMapping("/{userId}/friends/common/{friendId}")
