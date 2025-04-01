@@ -11,4 +11,14 @@ public interface UserStorage {
     Optional<User> update(User user);
 
     List<User> getAll();
+
+    Optional<Boolean> addFriend(Integer userId, Integer friendId);
+
+    Optional<Boolean> removeFriend(Integer userId, Integer friendId);
+
+    Optional<List<User>> getCommonFriends(Integer userId, Integer friendId);
+
+    Optional<List<User>> getUserFriends(Integer userId);
+
+    Optional<Boolean> checkUserId(Integer id);
 }

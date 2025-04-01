@@ -1,7 +1,9 @@
 package ru.yandex.practicum.filmorate.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private Integer id;
@@ -9,6 +11,7 @@ public class User {
     private String login;
     private String name;
     private LocalDate birthday;
+    private final Set<Integer> friendIds = new HashSet<>();
 
     public User(Integer id, String email, String login, String name, LocalDate birthday) {
         this.id = id;
@@ -56,6 +59,18 @@ public class User {
 
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
+    }
+
+    public Set<Integer> getFriendIds() {
+        return friendIds;
+    }
+
+    public void setFriendId(Integer friendId) {
+        friendIds.add(friendId);
+    }
+
+    public void removeFriendId(Integer id) {
+        friendIds.remove(id);
     }
 
     @Override

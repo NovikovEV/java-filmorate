@@ -2,7 +2,9 @@ package ru.yandex.practicum.filmorate.model;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class Film {
     private Integer id;
@@ -10,6 +12,7 @@ public class Film {
     private String description;
     private LocalDate releaseDate;
     private Duration duration;
+    private final Set<Integer> likes = new HashSet<>();
 
     public Film(Integer id, String name, String description, LocalDate releaseDate, Duration duration) {
         this.id = id;
@@ -19,11 +22,11 @@ public class Film {
         this.duration = duration;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,33 +62,35 @@ public class Film {
         this.duration = duration;
     }
 
+    public void setLike(Integer userId) {
+        likes.add(userId);
+    }
+
+    public void removeLike(Integer userId) {
+        likes.remove(userId);
+    }
+
+    public Set<Integer> getLikes() {
+        return likes;
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (!(o instanceof Film film)) {
             return false;
         }
 
-        return Objects.equals(id, film.id) && Objects.equals(name, film.name) && Objects.equals(description, film.description) && Objects.equals(releaseDate, film.releaseDate) && Objects.equals(duration, film.duration);
+        return Objects.equals(id, film.id) && Objects.equals(name, film.name) && Objects.equals(description, film.description) && Objects.equals(releaseDate, film.releaseDate) && Objects.equals(duration, film.duration) && likes.equals(film.likes);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + name.hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + releaseDate.hashCode();
-        result = 31 * result + duration.hashCode();
+        int result = Objects.hashCode(id);
+        result = 31 * result + Objects.hashCode(name);
+        result = 31 * result + Objects.hashCode(description);
+        result = 31 * result + Objects.hashCode(releaseDate);
+        result = 31 * result + Objects.hashCode(duration);
+        result = 31 * result + likes.hashCode();
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", releaseDate=" + releaseDate +
-                ", duration=" + duration +
-                '}';
     }
 }
